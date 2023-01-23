@@ -24,7 +24,7 @@ public class Version implements Comparable<Version> {
         MAJOR, MINOR, PATCH, SNAPSHOT
     }
 
-    private static final Pattern VERSION_REGEX = Pattern.compile("^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(-SNAPSHOT-(?<snapshot>\\d+))?$");
+    private static final Pattern VERSION_REGEX = Pattern.compile("^(?<major>\\d+)\\.(?<minor>\\d+)(\\.(?<patch>\\d+))?(-SNAPSHOT-(?<snapshot>\\d+))?$");
 
     /**
      * This constructor deserializes a version string into a {@link Version} object.
@@ -39,7 +39,10 @@ public class Version implements Comparable<Version> {
         String[] split = version.split("\\.");
         major = Integer.parseInt(matcher.group("major"));
         minor = Integer.parseInt(matcher.group("minor"));
-        patch = Integer.parseInt(matcher.group("patch"));
+        String patchString = matcher.group("patch");
+        if (patchString != null) {
+            patch = Integer.parseInt(patchString);
+        }
         String snapshotString = matcher.group("snapshot");
         if (snapshotString != null) {
             snapshot = Integer.parseInt(snapshotString);

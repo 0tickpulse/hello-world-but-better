@@ -3,9 +3,11 @@ package net.tickmc;
 import net.tickmc.helpers.Base64Helper;
 import net.tickmc.helpers.HttpsHelper;
 import net.tickmc.helpers.UpdateManager;
+import net.tickmc.helpers.Version;
 import net.tickmc.webserver.Server;
 
 public class Main {
+    public static final Version VERSION = new Version("1.0.2");
     public static void main(String[] args) {
         checkVersions();
         String response = getString();
@@ -25,9 +27,17 @@ public class Main {
         System.out.println("Started SpringBoot webserver.");
     }
     public static void checkVersions() {
+        System.out.println("Checking for updates...");
+        System.out.println("Current version: " + UpdateManager.getVersion());
+        if (UpdateManager.FAILED) {
+            System.out.println("Failed to check for updates. API is either down or ratelimited.");
+            return;
+        }
+        System.out.println("Latest version: " + UpdateManager.getLatestVersion());
         if (!UpdateManager.isLatestVersion()) {
-            System.out.println("There is a new version available: " + UpdateManager.getLatestVersion());
             System.out.println("Please download the latest version from https://github.com/0tickpulse/hello-world-but-better/releases/latest");
+        } else {
+            System.out.println("You are running the latest version.");
         }
     }
 }

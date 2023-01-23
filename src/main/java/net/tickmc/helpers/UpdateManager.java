@@ -1,14 +1,18 @@
 package net.tickmc.helpers;
 
+import net.tickmc.Main;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
 public class UpdateManager {
     private static URL repoApiUrl;
     private static URL downloadUrl;
     private static Version latestVersion;
+    public static boolean FAILED = false;
 
     static {
         try {
@@ -23,6 +27,8 @@ public class UpdateManager {
             UpdateManager.downloadUrl = new URL(downloadUrl);
         } catch (MalformedURLException e) {
             e.printStackTrace();
+        } catch (Throwable e) {
+            FAILED = true;
         }
     }
 
@@ -51,12 +57,7 @@ public class UpdateManager {
     }
 
     public static Version getVersion() {
-        try {
-            return new Version(new Manifest(UpdateManager.class.getResourceAsStream("/META-INF/MANIFEST.MF")).getMainAttributes().getValue("Version"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new Version("0.0.0");
-        }
+        return Main.VERSION;
     }
 }
 

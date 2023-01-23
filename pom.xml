@@ -6,7 +6,7 @@
 
     <groupId>net.tickmc</groupId>
     <artifactId>hello-world-but-better</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.2</version>
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
