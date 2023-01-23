@@ -7,7 +7,7 @@ import net.tickmc.helpers.Version;
 import net.tickmc.webserver.Server;
 
 public class Main {
-    public static final Version VERSION = new Version("1.0.2");
+    public static final Version VERSION = new Version("1.0.3");
     public static void main(String[] args) {
         checkVersions();
         String response = getString();
